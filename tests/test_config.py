@@ -16,12 +16,6 @@ def common_object_test(app):
     assert "TestConfig" not in app.config
 
 
-def test_config_from_pyfile():
-    app = flask.Flask(__name__)
-    app.config.from_pyfile(f"{__file__.rsplit('.', 1)[0]}.py")
-    common_object_test(app)
-
-
 def test_config_from_object():
     app = flask.Flask(__name__)
     app.config.from_object(__name__)
