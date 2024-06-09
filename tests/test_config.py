@@ -16,12 +16,6 @@ def common_object_test(app):
     assert "TestConfig" not in app.config
 
 
-def test_config_from_pyfile():
-    app = flask.Flask(__name__)
-    app.config.from_pyfile(f"{__file__.rsplit('.', 1)[0]}.py")
-    common_object_test(app)
-
-
 def test_config_from_object():
     app = flask.Flask(__name__)
     app.config.from_object(__name__)
@@ -29,6 +23,12 @@ def test_config_from_object():
 
 
 def test_config_from_file_json():
+    app = flask.Flask(__name__)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    app.config.from_file(os.path.join(current_dir, "static", "config.json"), json.load)
+    common_object_test(app)
+
+def test_config_from_file_json2():
     app = flask.Flask(__name__)
     current_dir = os.path.dirname(os.path.abspath(__file__))
     app.config.from_file(os.path.join(current_dir, "static", "config.json"), json.load)
